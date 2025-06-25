@@ -1,3 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+/build/
+/.react-router/
+*.tsbuildinfo
+
+# Environment variables
+.env
+.dev.vars*
+
 # Logs
 logs
 *.log
@@ -6,11 +18,12 @@ yarn-debug.log*
 yarn-error.log*
 dev-debug.log
 
-# Dependency directories
-node_modules/
+# Cloudflare
+.mf
+.wrangler
 
-# Environment variables
-.env
+# OS specific
+.DS_Store
 
 # Editor directories and files
 .idea
@@ -21,9 +34,6 @@ node_modules/
 *.sln
 *.sw?
 
-# OS specific
-.DS_Store
-
 # Task files
 # tasks.json
-# tasks/ 
+# tasks/
