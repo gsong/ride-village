@@ -2,204 +2,298 @@
   "master": {
     "tasks": [
       {
-        "id": 1,
-        "title": "Setup React Router v7 project with Cloudflare Workers",
-        "description": "Initialize project with React Router v7 in platform mode, configure Cloudflare Workers deployment, and set up basic project structure",
-        "details": "Create new React Router v7 project using `npx create-react-router@latest --template cloudflare-workers`. Configure wrangler.toml for Cloudflare Workers deployment. Set up basic folder structure: app/routes, app/components, app/lib. Install and configure Tailwind CSS for styling. Set up TypeScript configuration and basic ESLint/Prettier setup.",
-        "testStrategy": "Verify project builds successfully, deploys to Cloudflare Workers, and serves basic React application with SSR working correctly",
+        "id": 13,
+        "title": "Setup React Router v7 Project with Cloudflare Infrastructure",
+        "description": "Initialize the project with React Router v7 in platform mode, configure Cloudflare Workers deployment, and set up the development environment with Tailwind CSS",
+        "details": "Create new React Router v7 project using `npx create-react-router@latest --template cloudflare-workers`. Configure wrangler.toml for Cloudflare Workers deployment. Setup Tailwind CSS for styling. Configure TypeScript and ESLint. Add necessary dependencies for Cloudflare D1 database integration. Set up local development environment with `wrangler dev` for testing against Cloudflare services.",
+        "testStrategy": "Verify project builds successfully, deploys to Cloudflare Workers, and serves basic pages. Test local development server functionality and Tailwind CSS integration.",
         "priority": "high",
         "dependencies": [],
         "status": "pending",
         "subtasks": [
           {
             "id": 1,
-            "title": "Install and configure React Router v7",
-            "description": "Set up React Router v7 as the primary routing solution for the application",
+            "title": "Initialize React Router v7 Project with Cloudflare Workers Template",
+            "description": "Create a new React Router v7 project using the Cloudflare Workers template and verify the basic project structure",
             "dependencies": [],
-            "details": "Install React Router v7 package, configure basic routing structure, set up router provider, and create initial route definitions. Ensure compatibility with SSR and Cloudflare Workers environment.",
+            "details": "Run `npx create-react-router@latest --template cloudflare-workers` to scaffold the project. Verify that the generated project includes the correct directory structure with app/, public/, and server configuration files. Ensure package.json contains the necessary React Router v7 dependencies and Cloudflare Workers integration.",
             "status": "pending",
-            "testStrategy": ""
+            "testStrategy": "Verify project creation by checking for key files: package.json, wrangler.toml, app/root.tsx, and vite.config.ts. Run `npm install` to ensure all dependencies install correctly."
           },
           {
             "id": 2,
-            "title": "Configure Cloudflare Workers for server-side rendering",
-            "description": "Set up Cloudflare Workers environment and configure it for React Router v7 SSR",
+            "title": "Configure Wrangler and Cloudflare Workers Deployment Settings",
+            "description": "Set up wrangler.toml configuration file for Cloudflare Workers deployment with proper environment settings",
             "dependencies": [
               1
             ],
-            "details": "Install Cloudflare Workers CLI and dependencies, configure wrangler.toml, set up worker entry points for SSR, configure environment variables, and establish local development workflow.",
+            "details": "Configure wrangler.toml with project name, compatibility date, and deployment settings. Set up environment variables for development and production. Configure D1 database bindings in wrangler.toml for future database integration. Ensure proper routing configuration for React Router v7.",
             "status": "pending",
-            "testStrategy": ""
+            "testStrategy": "Validate wrangler.toml syntax using `wrangler validate`. Test local development environment with `wrangler dev` to ensure the application starts correctly and serves on localhost."
           },
           {
             "id": 3,
-            "title": "Set up Tailwind CSS with build configuration",
-            "description": "Install and configure Tailwind CSS for styling with proper build integration",
-            "dependencies": [],
-            "details": "Install Tailwind CSS and PostCSS dependencies, configure tailwind.config.js, set up CSS processing pipeline, configure purging for production builds, and integrate with the build system.",
+            "title": "Install and Configure Tailwind CSS",
+            "description": "Add Tailwind CSS to the project and configure it for use with React Router v7 and Vite",
+            "dependencies": [
+              1
+            ],
+            "details": "Install Tailwind CSS via npm with `npm install -D tailwindcss postcss autoprefixer`. Initialize Tailwind config with `npx tailwindcss init -p`. Configure tailwind.config.js to scan app directory for classes. Add Tailwind directives to CSS entry point. Set up Vite to process Tailwind CSS properly.",
             "status": "pending",
-            "testStrategy": ""
+            "testStrategy": "Create a test component with Tailwind classes to verify CSS compilation. Check that Tailwind utilities are working in the browser and that unused CSS is being purged in production builds."
           },
           {
             "id": 4,
-            "title": "Configure TypeScript for React Router v7 and Cloudflare Workers",
-            "description": "Set up TypeScript configuration optimized for the tech stack",
+            "title": "Configure TypeScript and ESLint for Development",
+            "description": "Set up TypeScript configuration and ESLint rules optimized for React Router v7 and Cloudflare Workers",
             "dependencies": [
-              1,
-              2
+              1
             ],
-            "details": "Install TypeScript and type definitions, configure tsconfig.json for both client and server environments, set up path mapping, configure module resolution for Cloudflare Workers, and ensure React Router v7 type compatibility.",
+            "details": "Configure tsconfig.json with proper compiler options for React Router v7 and Cloudflare Workers environment. Set up ESLint configuration with React, TypeScript, and Cloudflare Workers specific rules. Add type definitions for Cloudflare Workers APIs. Configure path aliases and module resolution.",
             "status": "pending",
-            "testStrategy": ""
+            "testStrategy": "Run `tsc --noEmit` to check TypeScript compilation without errors. Run `eslint .` to verify linting rules are working correctly. Test that import paths and type checking work as expected."
           },
           {
             "id": 5,
-            "title": "Configure ESLint and Prettier with project-specific rules",
-            "description": "Set up code linting and formatting tools with appropriate configurations",
+            "title": "Setup Cloudflare D1 Database Integration and Local Development Environment",
+            "description": "Configure Cloudflare D1 database bindings and set up local development environment for testing",
             "dependencies": [
-              4
+              2
             ],
-            "details": "Install ESLint, Prettier, and relevant plugins/configs for React, TypeScript, and Cloudflare Workers. Configure .eslintrc and .prettierrc files, set up pre-commit hooks, and integrate with VS Code settings.",
+            "details": "Add D1 database configuration to wrangler.toml including database name and binding. Install necessary dependencies for D1 integration. Set up local D1 database for development using `wrangler d1 create`. Configure environment types for D1 bindings in TypeScript. Set up database schema migration system.",
             "status": "pending",
-            "testStrategy": ""
-          },
-          {
-            "id": 6,
-            "title": "Verify deployment pipeline and test production build",
-            "description": "Test the complete deployment workflow and verify all integrations work in production",
-            "dependencies": [
-              2,
-              3,
-              4,
-              5
-            ],
-            "details": "Create a simple test page, build the application for production, deploy to Cloudflare Workers staging environment, verify SSR functionality, test routing, check CSS loading, and validate TypeScript compilation.",
-            "status": "pending",
-            "testStrategy": ""
+            "testStrategy": "Create a test database connection to verify D1 integration works locally. Run `wrangler dev` with D1 bindings to ensure the development environment can access the database. Test basic database operations like creating tables and inserting test data."
           }
         ]
       },
       {
-        "id": 2,
-        "title": "Configure Cloudflare D1 database and authentication",
-        "description": "Set up Cloudflare D1 SQLite database with schema and implement JWT-based authentication system",
-        "details": "Create D1 database using `wrangler d1 create ridevillage-db`. Define database schema with Users, Children, Locations, Adult_Child_Relations, Camps, Camp_Attendance, Carpools, Carpool_Members, Messages, and Vouches tables. Implement JWT authentication using Cloudflare Workers with session management. Create database migration system and seed data functionality.",
-        "testStrategy": "Test database connection, run migrations successfully, verify JWT token generation/validation, and test basic CRUD operations on all tables",
+        "id": 14,
+        "title": "Implement Database Schema and Cloudflare D1 Setup",
+        "description": "Create and deploy the complete database schema to Cloudflare D1 with all required tables for users, children, locations, camps, carpools, and relationships",
+        "details": "Create SQL migration files for all tables: users (id, email, name, phone, driver_capacity), children (id, name, created_by), locations (id, child_id, address, label), adult_child_relations (adult_id, child_id, is_admin), camps (id, name, address, dates, times), camp_attendance (camp_id, child_id), carpools (id, camp_id, driver_id, available_seats), carpool_members (carpool_id, child_id, pickup_location_id), messages (id, sender_id, recipient_id, carpool_id, content), vouches (voucher_id, vouchee_id). Use wrangler d1 commands to create and manage the database. Add proper indexes for performance.",
+        "testStrategy": "Run migration scripts successfully, verify all tables are created with correct schema, test basic CRUD operations on each table, validate foreign key constraints.",
         "priority": "high",
         "dependencies": [
-          1
+          13
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Cloudflare D1 Database Instance",
+            "description": "Initialize a new Cloudflare D1 database for the RideVillage application using wrangler CLI",
+            "dependencies": [],
+            "details": "Use `wrangler d1 create` command to create a new D1 database instance. Configure the database binding in wrangler.toml file. Set up local development database for testing migrations.",
+            "status": "pending",
+            "testStrategy": "Verify database creation with `wrangler d1 info` command and confirm binding configuration"
+          },
+          {
+            "id": 2,
+            "title": "Design Core Entity Tables Schema",
+            "description": "Create SQL migration files for users, children, locations, and adult_child_relations tables",
+            "dependencies": [
+              1
+            ],
+            "details": "Define SQL CREATE TABLE statements for: users (id PRIMARY KEY, email UNIQUE, name, phone, driver_capacity), children (id PRIMARY KEY, name, created_by FOREIGN KEY), locations (id PRIMARY KEY, child_id FOREIGN KEY, address, label), adult_child_relations (adult_id FOREIGN KEY, child_id FOREIGN KEY, is_admin BOOLEAN). Include proper constraints and data types.",
+            "status": "pending",
+            "testStrategy": "Validate SQL syntax and run migrations on local D1 instance to ensure tables are created correctly"
+          },
+          {
+            "id": 3,
+            "title": "Design Camp and Carpool Tables Schema",
+            "description": "Create SQL migration files for camps, camp_attendance, carpools, and carpool_members tables",
+            "dependencies": [
+              2
+            ],
+            "details": "Define SQL CREATE TABLE statements for: camps (id PRIMARY KEY, name, address, dates, times), camp_attendance (camp_id FOREIGN KEY, child_id FOREIGN KEY, PRIMARY KEY composite), carpools (id PRIMARY KEY, camp_id FOREIGN KEY, driver_id FOREIGN KEY, available_seats), carpool_members (carpool_id FOREIGN KEY, child_id FOREIGN KEY, pickup_location_id FOREIGN KEY).",
+            "status": "pending",
+            "testStrategy": "Test foreign key relationships and ensure referential integrity constraints work properly"
+          },
+          {
+            "id": 4,
+            "title": "Design Communication and Trust Tables Schema",
+            "description": "Create SQL migration files for messages and vouches tables",
+            "dependencies": [
+              2
+            ],
+            "details": "Define SQL CREATE TABLE statements for: messages (id PRIMARY KEY, sender_id FOREIGN KEY, recipient_id FOREIGN KEY, carpool_id FOREIGN KEY, content TEXT, created_at TIMESTAMP), vouches (voucher_id FOREIGN KEY, vouchee_id FOREIGN KEY, created_at TIMESTAMP, PRIMARY KEY composite). Handle nullable fields for group vs direct messages.",
+            "status": "pending",
+            "testStrategy": "Verify message threading logic and vouch relationship constraints work as expected"
+          },
+          {
+            "id": 5,
+            "title": "Add Performance Indexes and Deploy Schema",
+            "description": "Create indexes for query optimization and deploy complete schema to Cloudflare D1",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Add indexes for: users.email, children.created_by, locations.child_id, camp_attendance (camp_id, child_id), carpools.camp_id, carpool_members (carpool_id, child_id), messages (sender_id, recipient_id, carpool_id), vouches (voucher_id, vouchee_id). Run all migrations using `wrangler d1 migrations apply` command.",
+            "status": "pending",
+            "testStrategy": "Execute EXPLAIN QUERY PLAN on common queries to verify index usage and test deployment on staging D1 instance"
+          }
+        ]
       },
       {
-        "id": 3,
-        "title": "Implement user registration and authentication system",
-        "description": "Build user registration, login, and profile management with JWT authentication",
-        "details": "Create user registration form with email, name, phone, and driver_capacity fields. Implement password hashing using bcrypt. Build login/logout functionality with JWT token management. Create protected route wrapper for authenticated pages. Implement user profile editing and password reset functionality. Add form validation using Zod schemas.",
-        "testStrategy": "Test user registration flow, login/logout functionality, JWT token persistence, profile updates, and protected route authentication",
+        "id": 15,
+        "title": "Build Authentication System with JWT",
+        "description": "Implement user registration, login, and JWT-based authentication system integrated with Cloudflare Workers and D1 database",
+        "details": "Create auth routes for registration and login using React Router v7 server actions. Implement password hashing with bcrypt. Generate and validate JWT tokens using Cloudflare Workers crypto APIs. Create middleware for protected routes. Build registration/login forms with email validation. Store user sessions securely. Implement logout functionality and token refresh if needed.",
+        "testStrategy": "Test user registration with email validation, verify password hashing, validate JWT token generation and verification, test protected route access, confirm logout clears sessions properly.",
         "priority": "high",
         "dependencies": [
-          2
+          14
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set up database schema for users table",
+            "description": "Create users table in Cloudflare D1 with fields for id, email, password_hash, name, phone, driver_capacity, created_at, updated_at",
+            "dependencies": [],
+            "details": "Design and execute SQL migration to create users table with proper indexes on email field. Include validation constraints for email uniqueness and required fields. Set up proper data types and default values.",
+            "status": "pending",
+            "testStrategy": "Test table creation, constraints, and basic CRUD operations using D1 console or test queries"
+          },
+          {
+            "id": 2,
+            "title": "Implement password hashing utilities",
+            "description": "Create secure password hashing and verification functions using bcrypt for user authentication",
+            "dependencies": [],
+            "details": "Build utility functions for hashing passwords on registration and verifying passwords on login. Use appropriate salt rounds (12+) for security. Handle bcrypt errors and edge cases.",
+            "status": "pending",
+            "testStrategy": "Unit tests for hash generation, password verification, and error handling with various input scenarios"
+          },
+          {
+            "id": 3,
+            "title": "Create JWT token management system",
+            "description": "Implement JWT token creation, validation, and refresh functionality using Cloudflare Workers crypto APIs",
+            "dependencies": [],
+            "details": "Build functions to generate JWT tokens with user payload, validate token signatures, handle token expiration, and implement refresh token logic. Use Cloudflare Workers Web Crypto API for signing and verification.",
+            "status": "pending",
+            "testStrategy": "Test token generation, validation, expiration handling, and refresh token flow with mock user data"
+          },
+          {
+            "id": 4,
+            "title": "Build authentication server actions and routes",
+            "description": "Create React Router v7 server actions for user registration, login, and logout with proper validation",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Implement registration action with email validation, password hashing, and user creation. Build login action with credential verification and JWT token generation. Create logout action to invalidate sessions. Add proper error handling and validation.",
+            "status": "pending",
+            "testStrategy": "Integration tests for registration flow, login with valid/invalid credentials, and logout functionality"
+          },
+          {
+            "id": 5,
+            "title": "Create authentication middleware and protected route system",
+            "description": "Implement middleware to protect routes and build registration/login UI forms with validation",
+            "dependencies": [
+              4
+            ],
+            "details": "Create middleware to verify JWT tokens and protect authenticated routes. Build responsive registration and login forms with client-side validation, error display, and loading states. Implement session management and automatic token refresh.",
+            "status": "pending",
+            "testStrategy": "Test protected route access, form validation, user experience flows, and token refresh behavior"
+          }
+        ]
       },
       {
-        "id": 4,
-        "title": "Build child profile and family relationship management",
-        "description": "Create child profile system with many-to-many adult-child relationships and admin permissions",
-        "details": "Create child profile form with name and created_by fields. Implement many-to-many relationship between adults and children with is_admin flag. Build UI for adding/removing child-adult relationships. Create admin permission system where at least one admin is required per child. Add child profile editing and deletion with proper authorization checks.",
-        "testStrategy": "Test child creation, adult-child relationship management, admin permission enforcement, and child profile CRUD operations with proper authorization",
-        "priority": "medium",
-        "dependencies": [
-          3
-        ],
-        "status": "pending",
-        "subtasks": []
-      },
-      {
-        "id": 5,
-        "title": "Implement multiple location management per child",
-        "description": "Build location management system allowing multiple pickup/drop-off addresses per child with simple labels",
-        "details": "Create location form with address and label fields (Mom's house, Dad's house, etc.). Implement location CRUD operations for each child. Add address validation using basic geocoding. Build UI for managing multiple locations per child. Create location selection interface for carpool coordination. Store locations with child_id foreign key relationship.",
-        "testStrategy": "Test location creation/editing/deletion, address validation, location selection for carpools, and proper child-location relationships",
-        "priority": "medium",
-        "dependencies": [
-          4
-        ],
-        "status": "pending",
-        "subtasks": []
-      },
-      {
-        "id": 6,
-        "title": "Create camp directory and attendance system",
-        "description": "Build camp directory with camp creation, browsing, and attendance declaration functionality",
-        "details": "Create camp model with name, address, dates, and times fields. Build camp directory with create, browse, and search functionality. Implement camp attendance declaration linking children to camps. Add filtering by dates, location, and camp type. Pre-populate with Seattle area summer camps. Create camp detail pages with attendance lists.",
-        "testStrategy": "Test camp creation, browsing, search functionality, attendance declaration, and camp-child relationship management",
-        "priority": "medium",
-        "dependencies": [
-          5
-        ],
-        "status": "pending",
-        "subtasks": []
-      },
-      {
-        "id": 7,
-        "title": "Build carpool group creation and coordination",
-        "description": "Implement core carpool functionality with group creation, driver assignment, and seat management",
-        "details": "Create carpool model with camp_id, driver_id, and available_seats fields. Build carpool creation form for specific camps/dates. Implement driver assignment and seat availability tracking. Create carpool member management with pickup location selection. Add hub-and-spoke coordination support. Build pickup order management interface.",
-        "testStrategy": "Test carpool creation, driver assignment, seat availability tracking, member management, and pickup coordination functionality",
+        "id": 16,
+        "title": "Create User Profile and Family Management System",
+        "description": "Build comprehensive user profile management including parent profiles, child profiles, and many-to-many adult-child relationships with admin permissions",
+        "details": "Create user profile pages with forms for editing name, email, phone, and driver capacity. Build child profile creation and management with name and linked adults. Implement many-to-many relationship system where multiple adults can be linked to multiple children. Add admin designation system where at least one adult per child has admin permissions to add/remove other adults. Create family dashboard showing all linked children and adults. Add validation to ensure at least one admin per child.",
+        "testStrategy": "Test user profile creation and updates, verify child profile creation, validate many-to-many relationships work correctly, confirm admin permissions prevent unauthorized changes, test edge cases like removing the last admin.",
         "priority": "high",
         "dependencies": [
-          6
+          15
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 8,
-        "title": "Implement family discovery and camp matching",
-        "description": "Build discovery system to help parents find other families attending the same camps",
-        "details": "Create family discovery interface showing other families attending same camps. Build camp attendance matching algorithm. Add family profile display with basic information and vouching status. Implement search and filtering for families by camp, dates, and location proximity. Create 'interested in carpooling' indicators.",
-        "testStrategy": "Test family discovery functionality, camp matching accuracy, family profile display, and search/filtering capabilities",
+        "id": 17,
+        "title": "Implement Location Management System",
+        "description": "Build flexible location management allowing multiple pickup/drop-off addresses per child with simple labeling and hub-and-spoke support",
+        "details": "Create location forms for adding multiple addresses per child with custom labels (Mom's house, Dad's house, etc.). Implement address validation using basic geocoding API. Build location selection interface for trip planning. Add support for hub-and-spoke scenarios where children can be dropped at intermediate locations. Create location management dashboard for each child. Allow location editing and deletion with proper validation.",
+        "testStrategy": "Test adding multiple locations per child, verify address validation works, confirm label customization, test location selection in trip context, validate hub-and-spoke pickup scenarios work correctly.",
         "priority": "medium",
         "dependencies": [
-          7
+          16
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 9,
-        "title": "Build in-app messaging and communication system",
-        "description": "Create messaging system for parent communication and carpool-specific discussion threads",
-        "details": "Create messaging model with sender_id, recipient_id/carpool_id, and content fields. Build direct messaging interface between parents. Implement carpool-specific group messaging threads. Add message history and conversation management. Integrate SendGrid for email notifications. Create message status tracking (read/unread).",
-        "testStrategy": "Test direct messaging, group messaging, email notifications, message history, and real-time message delivery",
+        "id": 18,
+        "title": "Build Camp Directory and Management System",
+        "description": "Create camp directory with browsing, searching, and camp creation capabilities, plus attendance tracking functionality",
+        "details": "Build camp listing pages with search and filter functionality by name, dates, and location. Create camp creation forms for name, address, dates, and times with validation. Implement camp attendance system where parents can mark which camps their children attend. Add camp detail pages showing camp information and attending families. Pre-populate with Seattle area camps data. Include camp editing capabilities for camp administrators.",
+        "testStrategy": "Test camp creation with all required fields, verify search and filtering works correctly, validate attendance marking and display, confirm camp detail pages show correct information, test pre-populated Seattle camps data.",
         "priority": "medium",
         "dependencies": [
-          8
+          17
         ],
         "status": "pending",
         "subtasks": []
       },
       {
-        "id": 10,
-        "title": "Implement trust system and launch preparation",
-        "description": "Build vouching/endorsement system, add liability disclaimers, and prepare for Seattle launch",
-        "details": "Create vouching system with voucher_id and vouchee_id relationships. Build endorsement interface and display. Add liability disclaimers during registration and carpool creation. Implement onboarding flow for new users. Add error handling, logging, and basic monitoring. Create launch preparation checklist and Seattle camp data import.",
-        "testStrategy": "Test vouching functionality, disclaimer acceptance, onboarding flow, error handling, and end-to-end user journey from registration to carpool participation",
+        "id": 19,
+        "title": "Develop Carpool Coordination System",
+        "description": "Build core carpool functionality including group creation, driver assignment, seat management, and pickup order coordination",
+        "details": "Create carpool group creation forms for specific camps and dates. Implement driver assignment system with seat availability tracking. Build pickup order management with drag-and-drop interface for route planning. Add carpool member management for adding/removing children. Create carpool dashboard showing all user's carpools. Implement hub-and-spoke pickup coordination. Add carpool status tracking (planning, confirmed, completed).",
+        "testStrategy": "Test carpool creation for specific camps, verify driver assignment and seat tracking, validate pickup order management, confirm member addition/removal works, test hub-and-spoke scenarios, verify carpool status updates correctly.",
+        "priority": "high",
+        "dependencies": [
+          18
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Implement In-App Messaging System",
+        "description": "Build messaging functionality for parent-to-parent communication and carpool-specific discussion threads",
+        "details": "Create messaging interface with conversation threads between parents. Implement carpool-specific group messaging for each carpool group. Build message composition and sending functionality using React Router server actions. Add message history and read status tracking. Create notification system for new messages. Implement basic message formatting and emoji support. Add message search within conversations.",
+        "testStrategy": "Test direct messaging between parents, verify carpool group messaging works, confirm message delivery and read status, validate notification system, test message search functionality.",
         "priority": "medium",
         "dependencies": [
-          9
+          19
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 21,
+        "title": "Build Trust and Safety Features",
+        "description": "Implement parent-controlled vouching system, liability disclaimers, and safety features for building community trust",
+        "details": "Create vouching system where parents can endorse other parents they trust. Build profile pages showing vouches received and given. Implement liability disclaimer system that users must acknowledge. Add safety guidelines and best practices information. Create reporting system for inappropriate behavior. Build trust score display based on vouches and community participation. Add privacy controls for profile visibility.",
+        "testStrategy": "Test vouching functionality between users, verify disclaimer acceptance is required, validate trust score calculations, confirm reporting system works, test privacy controls for profile visibility.",
+        "priority": "medium",
+        "dependencies": [
+          20
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Integrate Email Notifications and Final Polish",
+        "description": "Add email notification system using SendGrid, implement final UI/UX improvements, and prepare for production deployment",
+        "details": "Integrate SendGrid for email notifications on carpool changes, new messages, and important updates. Implement notification preferences for users. Add final UI/UX polish including loading states, error handling, and responsive design improvements. Create onboarding flow for new users. Add comprehensive error monitoring and logging. Implement rate limiting and security headers. Prepare production deployment scripts and monitoring.",
+        "testStrategy": "Test email notification delivery for all scenarios, verify notification preferences work, validate responsive design across devices, test onboarding flow completeness, confirm error handling works properly, validate production deployment process.",
+        "priority": "medium",
+        "dependencies": [
+          21
         ],
         "status": "pending",
         "subtasks": []
       }
     ],
     "metadata": {
-      "created": "2025-06-25T01:10:20.650Z",
-      "updated": "2025-06-25T01:10:20.650Z",
+      "created": "2025-06-25T02:52:44.045Z",
+      "updated": "2025-06-25T03:07:04.152Z",
       "description": "Tasks for master context"
     }
   }
