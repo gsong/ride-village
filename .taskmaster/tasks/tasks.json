@@ -4,13 +4,103 @@
       {
         "id": 1,
         "title": "Setup React Router v7 Project with Cloudflare Infrastructure",
-        "description": "Initialize the project with React Router v7 in platform mode, configure Cloudflare Workers deployment, and set up the development environment with Tailwind CSS",
-        "details": "Create new React Router v7 project using `npx create-react-router@latest --template cloudflare-workers`. Configure wrangler.toml for Cloudflare Workers deployment. Setup Tailwind CSS for styling. Configure TypeScript and ESLint. Add necessary dependencies for Cloudflare D1 database integration. Set up local development environment with `wrangler dev` for testing against Cloudflare services.\n<info added on 2025-06-25T03:18:27.354Z>\nBased on the research findings, here are the updated best practices and specific configuration details for React Router v7 with Cloudflare Workers:\n\n**Updated Project Initialization:**\nUse `npx create-react-router@latest ride-village --template cloudflare-workers` which provides optimal SSR defaults with proper entry points for client/server code.\n\n**Enhanced wrangler.toml Configuration:**\nAdd compatibility_flags = [\"nodejs_compat\"] and compatibility_date = \"2024-06-01\" for optimal performance. Include D1 database binding configuration and use `wrangler dev --local --persist-to ./local-db` for local development to maintain database state between restarts.\n\n**Vite Configuration Optimizations:**\nConfigure vite.config.ts with ssr.target = \"webworker\" and ssr.noExternal = [\"react-router-dom\"] for Cloudflare Workers compatibility. Add rollupOptions to externalize \"__STATIC_CONTENT_MANIFEST\".\n\n**Tailwind CSS Best Practices:**\nConfigure tailwind.config.js with content paths specific to React Router v7: [\"./app/**/*.{js,jsx,ts,tsx}\"] and import Tailwind in app/root.tsx instead of a separate CSS file.\n\n**Database Integration Pattern:**\nUse context.cloudflare.env.DB in route loaders for D1 access. Implement proper TypeScript types with @cloudflare/workers-types for the complex family relationship schema.\n\n**Authentication Implementation:**\nUse jose library for JWT handling with SignJWT/jwtVerify pattern. Store tokens in HTTP-only cookies for security. Configure JWT_SECRET in environment variables.\n\n**Development Workflow:**\nUse npm run dev for hot reloading during feature development, wrangler dev --local for database testing, and wrangler dev --remote for production D1 testing.\n\n**Performance Optimizations:**\nEnable route-level code splitting using React.lazy(), implement React Router's defer for non-critical data, and leverage Cloudflare edge caching for static camp directory data.\n\n**TypeScript Configuration:**\nSet target to \"ES2022\" with lib: [\"DOM\", \"DOM.Iterable\", \"ES6\", \"ES2022\"] and include @cloudflare/workers-types for V8 runtime compatibility.\n</info added on 2025-06-25T03:18:27.354Z>",
+        "description": "Initialize the project with React Router v7 in platform mode, configure Cloudflare Workers deployment, and set up the development environment with Tailwind CSS [Updated: 6/24/2025]",
+        "details": "Create new React Router v7 project using `npx create-react-router@latest --template cloudflare-workers`. Configure wrangler.toml for Cloudflare Workers deployment. Setup Tailwind CSS for styling. Configure TypeScript and ESLint. Add necessary dependencies for Cloudflare D1 database integration. Set up local development environment with `wrangler dev` for testing against Cloudflare services.\n<info added on 2025-06-25T03:18:27.354Z>\nBased on the research findings, here are the updated best practices and specific configuration details for React Router v7 with Cloudflare Workers:\n\n**Updated Project Initialization:**\nUse `npx create-react-router@latest ride-village --template cloudflare-workers` which provides optimal SSR defaults with proper entry points for client/server code.\n\n**Enhanced wrangler.toml Configuration:**\nAdd compatibility_flags = [\"nodejs_compat\"] and compatibility_date = \"2024-06-01\" for optimal performance. Include D1 database binding configuration and use `wrangler dev --local --persist-to ./local-db` for local development to maintain database state between restarts.\n\n**Vite Configuration Optimizations:**\nConfigure vite.config.ts with ssr.target = \"webworker\" and ssr.noExternal = [\"react-router-dom\"] for Cloudflare Workers compatibility. Add rollupOptions to externalize \"__STATIC_CONTENT_MANIFEST\".\n\n**Tailwind CSS Best Practices:**\nConfigure tailwind.config.js with content paths specific to React Router v7: [\"./app/**/*.{js,jsx,ts,tsx}\"] and import Tailwind in app/root.tsx instead of a separate CSS file.\n\n**Database Integration Pattern:**\nUse context.cloudflare.env.DB in route loaders for D1 access. Implement proper TypeScript types with @cloudflare/workers-types for the complex family relationship schema.\n\n**Authentication Implementation:**\nUse jose library for JWT handling with SignJWT/jwtVerify pattern. Store tokens in HTTP-only cookies for security. Configure JWT_SECRET in environment variables.\n\n**Development Workflow:**\nUse npm run dev for hot reloading during feature development, wrangler dev --local for database testing, and wrangler dev --remote for production D1 testing.\n\n**Performance Optimizations:**\nEnable route-level code splitting using React.lazy(), implement React Router's defer for non-critical data, and leverage Cloudflare edge caching for static camp directory data.\n\n**TypeScript Configuration:**\nSet target to \"ES2022\" with lib: [\"DOM\", \"DOM.Iterable\", \"ES6\", \"ES2022\"] and include @cloudflare/workers-types for V8 runtime compatibility.\n</info added on 2025-06-25T03:18:27.354Z>\n<info added on 2025-06-25T04:02:47.610Z>\nGitHub Issue #1 referenced for tracking this project setup task.\n</info added on 2025-06-25T04:02:47.610Z>",
         "testStrategy": "Verify project builds successfully, deploys to Cloudflare Workers, and serves basic pages. Test local development server functionality and Tailwind CSS integration.",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "in-progress",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize React Router v7 Project",
+            "description": "Create new React Router v7 project with platform mode configuration for Cloudflare Workers deployment [Updated: 6/24/2025]",
+            "dependencies": [],
+            "details": "Run `npx create-react-router@latest` with appropriate flags, configure for platform mode, and set up basic project structure with src/ and app/ directories\n<info added on 2025-06-25T04:02:56.280Z>\nAdded GitHub Issue #2 reference for project initialization tracking. This subtask covers the initial project creation using create-react-router CLI tool with platform mode configuration and standard directory structure setup.\n</info added on 2025-06-25T04:02:56.280Z>",
+            "status": "in-progress",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configure Wrangler.toml for Cloudflare Workers",
+            "description": "Set up wrangler.toml configuration file with proper worker settings, compatibility dates, and build commands [Updated: 6/24/2025]",
+            "dependencies": [
+              1
+            ],
+            "details": "Create wrangler.toml with name, compatibility date, build configuration, and prepare for D1 database bindings. Configure main entry point and build output directory\n<info added on 2025-06-25T04:03:06.729Z>\nAdded GitHub Issue #3 reference for tracking Wrangler.toml configuration requirements. This includes setting up the main module entry point, defining compatibility date for Workers runtime, configuring build commands and output directories, and preparing D1 database binding placeholders for future database setup.\n</info added on 2025-06-25T04:03:06.729Z>",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Install and Configure Tailwind CSS",
+            "description": "Set up Tailwind CSS with proper configuration for React Router v7 and Cloudflare Workers environment [Updated: 6/24/2025]",
+            "dependencies": [
+              1
+            ],
+            "details": "Install tailwindcss, postcss, autoprefixer. Create tailwind.config.js with content paths for app/ directory. Set up CSS imports and ensure compatibility with SSR\n<info added on 2025-06-25T04:03:15.448Z>\nReferenced GitHub Issue #4 for Tailwind CSS installation and configuration requirements. This implementation addresses the specific setup needed for the RideVillage project's styling framework integration.\n</info added on 2025-06-25T04:03:15.448Z>",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Configure TypeScript and ESLint",
+            "description": "Set up TypeScript configuration and ESLint rules optimized for React Router v7 and Cloudflare Workers [Updated: 6/24/2025]",
+            "dependencies": [
+              1
+            ],
+            "details": "Configure tsconfig.json with proper module resolution, target ES2022, and Cloudflare Workers types. Set up ESLint with React Router v7 recommended rules and TypeScript integration\n<info added on 2025-06-25T04:03:24.097Z>\nReferenced GitHub Issue #5 for TypeScript and ESLint configuration requirements. This subtask addresses the specific configuration needs outlined in the issue for proper TypeScript compilation and linting setup in the React Router v7 + Cloudflare Workers environment.\n</info added on 2025-06-25T04:03:24.097Z>",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Create D1 Database and Configure Bindings",
+            "description": "Create Cloudflare D1 database instance and configure bindings in wrangler.toml [Updated: 6/24/2025]",
+            "dependencies": [
+              2
+            ],
+            "details": "Run `wrangler d1 create ride-village-db`, update wrangler.toml with database bindings, and configure environment-specific database names for development and production\n<info added on 2025-06-25T04:03:32.185Z>\nReferences GitHub Issue #6 for detailed requirements on D1 database creation and binding configuration. Follow the issue specifications for database naming conventions and environment setup.\n</info added on 2025-06-25T04:03:32.185Z>",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Set up Database Schema and Migration System",
+            "description": "Create initial database schema SQL files and establish migration workflow for D1 [Updated: 6/24/2025]",
+            "dependencies": [
+              5
+            ],
+            "details": "Create migrations/ directory, write initial schema.sql with users, children, locations, camps, and carpool tables. Set up migration commands in package.json for local and remote D1 instances\n<info added on 2025-06-25T04:03:41.895Z>\nAddresses GitHub Issue #7 requirements. Implement comprehensive migration system with version control and rollback capabilities. Ensure schema includes proper foreign key relationships and indexes for performance. Add seeding functionality for development data. Document migration workflow in project setup guide.\n</info added on 2025-06-25T04:03:41.895Z>",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Configure Environment Variables and Secrets",
+            "description": "Set up environment variable management for local development and production deployment [Updated: 6/24/2025]",
+            "dependencies": [
+              2
+            ],
+            "details": "Create .env.example, configure wrangler.toml vars section, set up local .dev.vars file, and document required environment variables for JWT secrets and external API keys\n<info added on 2025-06-25T04:03:51.001Z>\nAddresses GitHub Issue #8 by implementing comprehensive environment variable configuration including JWT_SECRET for authentication, SENDGRID_API_KEY for email notifications, and DATABASE_URL for D1 connection string. Ensures proper separation between development and production secrets with secure handling practices.\n</info added on 2025-06-25T04:03:51.001Z>",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Establish Local Development Workflow",
+            "description": "Configure development scripts, testing setup, and deployment commands for smooth local development [Updated: 6/24/2025]",
+            "dependencies": [
+              3,
+              4,
+              6,
+              7
+            ],
+            "details": "Update package.json with dev, build, deploy, and test scripts. Configure wrangler dev for local development with D1 local database. Test full development workflow from local to production deployment\n<info added on 2025-06-25T04:04:01.429Z>\nGitHub Issue #9 tracked - This subtask addresses establishing the complete local development workflow including hot reloading, database seeding, and environment parity between local and production environments. Ensures developers can run the full stack locally with wrangler dev and have a seamless path to deploy changes.\n</info added on 2025-06-25T04:04:01.429Z>",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
       },
       {
         "id": 2,
@@ -132,7 +222,7 @@
     ],
     "metadata": {
       "created": "2025-06-25T02:52:44.045Z",
-      "updated": "2025-06-25T03:07:04.152Z",
+      "updated": "2025-06-25T04:09:56.447Z",
       "description": "Tasks for master context"
     }
   }
