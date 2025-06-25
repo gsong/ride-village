@@ -69,7 +69,7 @@ The platform addresses Seattle-area parents managing 4-6 different summer camps 
 ## System Components
 
 **Frontend**: React Router v7 in platform mode with server-side rendering, Tailwind CSS
-**Backend**: React Router v7 server capabilities, JWT authentication, basic messaging
+**Backend**: React Router v7 server capabilities, Clerk authentication, basic messaging
 **Database**: Cloudflare D1 (SQLite at edge) for all data storage
 **Infrastructure**: Cloudflare Workers for edge computing, KV for caching
 
@@ -89,6 +89,7 @@ The platform addresses Seattle-area parents managing 4-6 different summer camps 
 ## APIs and Integrations
 
 - RESTful API for all operations
+- Clerk authentication API for user management
 - Email notifications via SendGrid
 - Basic address validation
 
@@ -96,7 +97,7 @@ The platform addresses Seattle-area parents managing 4-6 different summer camps 
 
 - Deploy to Cloudflare Workers
 - Use Cloudflare D1 for data persistence
-- Basic authentication and session management
+- Clerk for authentication and session management
 - HTTPS for all communications
 
 # Development Roadmap
