@@ -210,7 +210,62 @@
           15
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and implement user profile database schema",
+            "description": "Create database tables and models for users, children, and adult-child relationships with proper foreign keys and constraints",
+            "dependencies": [],
+            "details": "Define Users table (id, email, name, phone, driver_capacity, created_at, updated_at), Children table (id, name, created_by, created_at, updated_at), and AdultChildRelations table (adult_id, child_id, is_admin, created_at) with proper indexes and constraints. Ensure at least one admin per child constraint at database level.",
+            "status": "pending",
+            "testStrategy": "Unit tests for database models, constraint validation tests, integration tests for relationship queries"
+          },
+          {
+            "id": 2,
+            "title": "Build user profile management API endpoints",
+            "description": "Create REST API endpoints for CRUD operations on user profiles including validation and authentication",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement GET/PUT /api/users/:id for profile retrieval and updates, POST/DELETE /api/users/:id/children for child management, GET/POST/DELETE /api/children/:id/adults for adult-child relationship management. Add proper validation, authentication middleware, and error handling.",
+            "status": "pending",
+            "testStrategy": "API endpoint tests covering CRUD operations, validation edge cases, authentication requirements, and error responses"
+          },
+          {
+            "id": 3,
+            "title": "Create user profile forms and validation",
+            "description": "Build React forms for editing user profiles with client-side validation and error handling",
+            "dependencies": [
+              2
+            ],
+            "details": "Create ProfileForm component with fields for name, email, phone, and driver_capacity. Implement form validation using React Hook Form or similar, handle submission states, display validation errors, and integrate with profile API endpoints. Include proper accessibility attributes.",
+            "status": "pending",
+            "testStrategy": "Component tests for form rendering, validation logic, submission handling, and accessibility compliance"
+          },
+          {
+            "id": 4,
+            "title": "Build child profile management interface",
+            "description": "Create child profile creation and management UI with adult linking functionality",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement ChildProfileForm for creating/editing child profiles, AdultLinkingComponent for managing adult-child relationships with admin designation, and ChildList component for displaying linked children. Include modal dialogs for adding/removing adults and proper permission checks.",
+            "status": "pending",
+            "testStrategy": "Component tests for child profile CRUD operations, adult linking functionality, admin permission logic, and UI interactions"
+          },
+          {
+            "id": 5,
+            "title": "Create family dashboard with relationship overview",
+            "description": "Build comprehensive family dashboard showing all linked children, adults, and relationship management",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Create FamilyDashboard component displaying user's children, linked adults per child, admin status indicators, and quick actions for managing relationships. Implement RelationshipCard components, admin badge indicators, and ensure at least one admin validation with user-friendly error messages.",
+            "status": "pending",
+            "testStrategy": "Integration tests for dashboard data loading, relationship display accuracy, admin constraint enforcement, and user interaction flows"
+          }
+        ]
       },
       {
         "id": 17,
@@ -223,7 +278,64 @@
           16
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and implement location data model",
+            "description": "Create database schema and models for storing multiple locations per child with custom labels and address validation",
+            "dependencies": [],
+            "details": "Define Location model with fields: id, child_id, address, label, latitude, longitude, is_active, created_at, updated_at. Create database migration for locations table. Implement model relationships between Child and Location (one-to-many). Add validation rules for address format and required fields. Include soft delete functionality for location management.",
+            "status": "pending",
+            "testStrategy": "Unit tests for model validation, relationship testing, database constraint verification, and CRUD operations on location records"
+          },
+          {
+            "id": 2,
+            "title": "Build location form components and validation",
+            "description": "Create React components for adding and editing locations with address validation and geocoding integration",
+            "dependencies": [
+              1
+            ],
+            "details": "Build LocationForm component with fields for address input, custom label, and validation feedback. Integrate basic geocoding API for address validation and coordinate extraction. Implement form validation with error handling for invalid addresses. Create reusable AddressInput component with autocomplete suggestions. Add form state management and submission handling.",
+            "status": "pending",
+            "testStrategy": "Component testing with React Testing Library, form validation testing, geocoding API integration tests, and user interaction testing"
+          },
+          {
+            "id": 3,
+            "title": "Implement location management dashboard",
+            "description": "Create interface for viewing, editing, and managing all locations associated with a child",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Build LocationDashboard component displaying all child locations in card/list format. Implement edit and delete functionality with confirmation dialogs. Add location status indicators (active/inactive). Create bulk operations for managing multiple locations. Include search and filtering capabilities for location lists. Add responsive design for mobile access.",
+            "status": "pending",
+            "testStrategy": "Integration tests for dashboard functionality, delete confirmation flows, bulk operations testing, and responsive design verification"
+          },
+          {
+            "id": 4,
+            "title": "Build location selection interface for trip planning",
+            "description": "Create components for selecting pickup/drop-off locations during carpool coordination and trip planning",
+            "dependencies": [
+              1,
+              3
+            ],
+            "details": "Build LocationSelector component with dropdown/radio button interface for choosing locations. Implement location filtering based on trip context (pickup vs drop-off). Create location preview with address and label display. Add quick location switching during trip planning. Include default location preferences and recent location history. Integrate with carpool coordination workflow.",
+            "status": "pending",
+            "testStrategy": "User flow testing for location selection, integration testing with carpool components, and accessibility testing for selection interfaces"
+          },
+          {
+            "id": 5,
+            "title": "Implement hub-and-spoke location coordination",
+            "description": "Add support for intermediate pickup/drop-off locations and multi-stop trip coordination",
+            "dependencies": [
+              1,
+              4
+            ],
+            "details": "Extend location model to support location types (home, hub, destination). Build hub location management for intermediate stops. Create trip routing interface showing pickup order and hub connections. Implement logic for coordinating children from multiple homes to hub locations. Add hub capacity management and coordination features. Include visual trip route display with all stops.",
+            "status": "pending",
+            "testStrategy": "End-to-end testing of hub-and-spoke workflows, route coordination testing, capacity management validation, and multi-family coordination scenarios"
+          }
+        ]
       },
       {
         "id": 18,
