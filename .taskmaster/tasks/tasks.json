@@ -1,0 +1,206 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup React Router v7 project with Cloudflare Workers",
+        "description": "Initialize project with React Router v7 in platform mode, configure Cloudflare Workers deployment, and set up basic project structure",
+        "details": "Create new React Router v7 project using `npx create-react-router@latest --template cloudflare-workers`. Configure wrangler.toml for Cloudflare Workers deployment. Set up basic folder structure: app/routes, app/components, app/lib. Install and configure Tailwind CSS for styling. Set up TypeScript configuration and basic ESLint/Prettier setup.",
+        "testStrategy": "Verify project builds successfully, deploys to Cloudflare Workers, and serves basic React application with SSR working correctly",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install and configure React Router v7",
+            "description": "Set up React Router v7 as the primary routing solution for the application",
+            "dependencies": [],
+            "details": "Install React Router v7 package, configure basic routing structure, set up router provider, and create initial route definitions. Ensure compatibility with SSR and Cloudflare Workers environment.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configure Cloudflare Workers for server-side rendering",
+            "description": "Set up Cloudflare Workers environment and configure it for React Router v7 SSR",
+            "dependencies": [
+              1
+            ],
+            "details": "Install Cloudflare Workers CLI and dependencies, configure wrangler.toml, set up worker entry points for SSR, configure environment variables, and establish local development workflow.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Set up Tailwind CSS with build configuration",
+            "description": "Install and configure Tailwind CSS for styling with proper build integration",
+            "dependencies": [],
+            "details": "Install Tailwind CSS and PostCSS dependencies, configure tailwind.config.js, set up CSS processing pipeline, configure purging for production builds, and integrate with the build system.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Configure TypeScript for React Router v7 and Cloudflare Workers",
+            "description": "Set up TypeScript configuration optimized for the tech stack",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Install TypeScript and type definitions, configure tsconfig.json for both client and server environments, set up path mapping, configure module resolution for Cloudflare Workers, and ensure React Router v7 type compatibility.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Configure ESLint and Prettier with project-specific rules",
+            "description": "Set up code linting and formatting tools with appropriate configurations",
+            "dependencies": [
+              4
+            ],
+            "details": "Install ESLint, Prettier, and relevant plugins/configs for React, TypeScript, and Cloudflare Workers. Configure .eslintrc and .prettierrc files, set up pre-commit hooks, and integrate with VS Code settings.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Verify deployment pipeline and test production build",
+            "description": "Test the complete deployment workflow and verify all integrations work in production",
+            "dependencies": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "details": "Create a simple test page, build the application for production, deploy to Cloudflare Workers staging environment, verify SSR functionality, test routing, check CSS loading, and validate TypeScript compilation.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Configure Cloudflare D1 database and authentication",
+        "description": "Set up Cloudflare D1 SQLite database with schema and implement JWT-based authentication system",
+        "details": "Create D1 database using `wrangler d1 create ridevillage-db`. Define database schema with Users, Children, Locations, Adult_Child_Relations, Camps, Camp_Attendance, Carpools, Carpool_Members, Messages, and Vouches tables. Implement JWT authentication using Cloudflare Workers with session management. Create database migration system and seed data functionality.",
+        "testStrategy": "Test database connection, run migrations successfully, verify JWT token generation/validation, and test basic CRUD operations on all tables",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Implement user registration and authentication system",
+        "description": "Build user registration, login, and profile management with JWT authentication",
+        "details": "Create user registration form with email, name, phone, and driver_capacity fields. Implement password hashing using bcrypt. Build login/logout functionality with JWT token management. Create protected route wrapper for authenticated pages. Implement user profile editing and password reset functionality. Add form validation using Zod schemas.",
+        "testStrategy": "Test user registration flow, login/logout functionality, JWT token persistence, profile updates, and protected route authentication",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Build child profile and family relationship management",
+        "description": "Create child profile system with many-to-many adult-child relationships and admin permissions",
+        "details": "Create child profile form with name and created_by fields. Implement many-to-many relationship between adults and children with is_admin flag. Build UI for adding/removing child-adult relationships. Create admin permission system where at least one admin is required per child. Add child profile editing and deletion with proper authorization checks.",
+        "testStrategy": "Test child creation, adult-child relationship management, admin permission enforcement, and child profile CRUD operations with proper authorization",
+        "priority": "medium",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Implement multiple location management per child",
+        "description": "Build location management system allowing multiple pickup/drop-off addresses per child with simple labels",
+        "details": "Create location form with address and label fields (Mom's house, Dad's house, etc.). Implement location CRUD operations for each child. Add address validation using basic geocoding. Build UI for managing multiple locations per child. Create location selection interface for carpool coordination. Store locations with child_id foreign key relationship.",
+        "testStrategy": "Test location creation/editing/deletion, address validation, location selection for carpools, and proper child-location relationships",
+        "priority": "medium",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Create camp directory and attendance system",
+        "description": "Build camp directory with camp creation, browsing, and attendance declaration functionality",
+        "details": "Create camp model with name, address, dates, and times fields. Build camp directory with create, browse, and search functionality. Implement camp attendance declaration linking children to camps. Add filtering by dates, location, and camp type. Pre-populate with Seattle area summer camps. Create camp detail pages with attendance lists.",
+        "testStrategy": "Test camp creation, browsing, search functionality, attendance declaration, and camp-child relationship management",
+        "priority": "medium",
+        "dependencies": [
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Build carpool group creation and coordination",
+        "description": "Implement core carpool functionality with group creation, driver assignment, and seat management",
+        "details": "Create carpool model with camp_id, driver_id, and available_seats fields. Build carpool creation form for specific camps/dates. Implement driver assignment and seat availability tracking. Create carpool member management with pickup location selection. Add hub-and-spoke coordination support. Build pickup order management interface.",
+        "testStrategy": "Test carpool creation, driver assignment, seat availability tracking, member management, and pickup coordination functionality",
+        "priority": "high",
+        "dependencies": [
+          6
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Implement family discovery and camp matching",
+        "description": "Build discovery system to help parents find other families attending the same camps",
+        "details": "Create family discovery interface showing other families attending same camps. Build camp attendance matching algorithm. Add family profile display with basic information and vouching status. Implement search and filtering for families by camp, dates, and location proximity. Create 'interested in carpooling' indicators.",
+        "testStrategy": "Test family discovery functionality, camp matching accuracy, family profile display, and search/filtering capabilities",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Build in-app messaging and communication system",
+        "description": "Create messaging system for parent communication and carpool-specific discussion threads",
+        "details": "Create messaging model with sender_id, recipient_id/carpool_id, and content fields. Build direct messaging interface between parents. Implement carpool-specific group messaging threads. Add message history and conversation management. Integrate SendGrid for email notifications. Create message status tracking (read/unread).",
+        "testStrategy": "Test direct messaging, group messaging, email notifications, message history, and real-time message delivery",
+        "priority": "medium",
+        "dependencies": [
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Implement trust system and launch preparation",
+        "description": "Build vouching/endorsement system, add liability disclaimers, and prepare for Seattle launch",
+        "details": "Create vouching system with voucher_id and vouchee_id relationships. Build endorsement interface and display. Add liability disclaimers during registration and carpool creation. Implement onboarding flow for new users. Add error handling, logging, and basic monitoring. Create launch preparation checklist and Seattle camp data import.",
+        "testStrategy": "Test vouching functionality, disclaimer acceptance, onboarding flow, error handling, and end-to-end user journey from registration to carpool participation",
+        "priority": "medium",
+        "dependencies": [
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-25T01:10:20.650Z",
+      "updated": "2025-06-25T01:10:20.650Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
